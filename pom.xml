@@ -1,110 +1,122 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
-	<modelVersion>4.0.0</modelVersion>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <parent>
+        <groupId>org.jenkins-ci.plugins</groupId>
+        <artifactId>plugin</artifactId>
+        <version>1.609.2</version>
+    </parent>
 
-	<parent>
-		<groupId>com.github.surenlancer7</groupId>
-		<artifactId>phonegap-build</artifactId>
-		<version>0.0.11-SNAPSHOT</version>
-	</parent>
+    <groupId>com.nirima.jenkins.repository</groupId>
+    <artifactId>pom</artifactId>
+    <name>Jenkins Maven Repository Server : Project POM</name>
 
-	<artifactId>phonegap-build-maven-plugin</artifactId>
-	<packaging>maven-plugin</packaging>
+    <version>1.3</version>
+    <packaging>pom</packaging>
 
-	<name>PhoneGap Build Maven Plugin</name>
-	<description>A Maven Plugin which makes use of the API to turn WAR projects into binaries for mobile platforms.</description>
+    <ciManagement>
+        <url>http://localhost:8080/jenkins</url>
+    </ciManagement>
 
-	<dependencies>
-		<dependency>
-			<groupId>com.github.chrisprice</groupId>
-			<artifactId>phonegap-build-api</artifactId>
-			<version>0.0.11-SNAPSHOT</version>
-		</dependency>
-		<dependency>
-			<groupId>org.apache.maven</groupId>
-			<artifactId>maven-plugin-api</artifactId>
-			<version>2.0</version>
-		</dependency>
-		<dependency>
-			<groupId>org.apache.maven</groupId>
-			<artifactId>maven-artifact</artifactId>
-			<version>2.0.9</version>
-			<scope>compile</scope>
-		</dependency>
-		<dependency>
-			<groupId>org.codehaus.plexus</groupId>
-			<artifactId>plexus-archiver</artifactId>
-			<version>2.1.1</version>
-		</dependency>
-		<dependency>
-			<groupId>org.codehaus.plexus</groupId>
-			<artifactId>plexus-component-annotations</artifactId>
-			<version>1.5.5</version>
-		</dependency>
-		<dependency>
-			<groupId>org.apache.maven</groupId>
-			<artifactId>maven-project</artifactId>
-			<version>2.0</version>
-		</dependency>
-		<dependency>
-			<groupId>org.apache.commons</groupId>
-			<artifactId>commons-io</artifactId>
-			<version>1.3.2</version>
-		</dependency>
-		<dependency>
-			<groupId>org.jmock</groupId>
-			<artifactId>jmock-junit3</artifactId>
-			<version>2.5.1</version>
-			<scope>test</scope>
-		</dependency>
-		<dependency>
-			<groupId>org.jmock</groupId>
-			<artifactId>jmock-legacy</artifactId>
-			<version>2.5.1</version>
-			<scope>test</scope>
-		</dependency>
-		<dependency>
-			<groupId>org.codehaus.plexus</groupId>
-			<artifactId>plexus-utils</artifactId>
-			<version>3.0.1</version>
-		</dependency>
-		<dependency>
-			<groupId>org.codehaus.plexus</groupId>
-			<artifactId>plexus-component-metadata</artifactId>
-			<version>1.5.5</version>
-		</dependency>
-	</dependencies>
+    <profiles>
+        <profile>
+            <id>repository</id>
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>com.nirima.jenkins.repository</groupId>
+                        <artifactId>jenkins-maven-plugin</artifactId>
+                        <version>${pom.version}</version>
+                        <executions>
+                            <execution>
+                            <goals>
+                                <goal>report-artifacts</goal>
+                            </goals>
+                        </execution>
+                        </executions>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+    </profiles>
 
-	<build>
-		<plugins>
-			<plugin>
-				<groupId>com.github.github</groupId>
-				<artifactId>site-maven-plugin</artifactId>
-				<configuration>
-					<message>Generated site for ${project.artifactId}
-						${project.version}</message>
-					<path>${project.artifactId}</path>
-					<merge>true</merge>
-				</configuration>
-			</plugin>
-			<plugin>
-				<groupId>org.codehaus.plexus</groupId>
-				<artifactId>plexus-component-metadata</artifactId>
-				<version>1.5.5</version>
-				<executions>
-					<execution>
-						<id>process-classes</id>
-						<goals>
-							<goal>generate-metadata</goal>
-						</goals>
-					</execution>
-					<execution>
-						<id>process-test-classes</id>
-						<goals>
-							<goal>generate-test-metadata</goal>
-						</goals>
-					</execution>
-				</executions>
-			</plugin>
-		</plugins>
-	</build>
+    <developers>
+        <developer>
+            <id>magnayn</id>
+            <name>Nigel Magnay</name>
+            <email>nigel.magnay@gmail.com</email>
+        </developer>
+        <developer>
+            <id>bjwschaap</id>
+            <name>Bastiaan Schaap</name>
+            <email>bastiaan.schaap@gmail.com</email>
+        </developer>
+    </developers>
+
+    <properties>
+        <hpi.plugin.version>1.113</hpi.plugin.version>
+        <jenkins.version>${project.parent.version}</jenkins.version>
+        <jdk.debug>true</jdk.debug>
+        <jdk.optimize>false</jdk.optimize>
+        <jdk.source>1.7</jdk.source>
+        <jdk.target>1.7</jdk.target>
+    </properties>
+    <build>
+        <pluginManagement>
+            <plugins>
+
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-compiler-plugin</artifactId>
+                    <version>${maven-compiler-plugin.version}</version>
+                    <configuration>
+                        <source>${jdk.source}</source>
+                        <target>${jdk.target}</target>
+                        <debug>${jdk.debug}</debug>
+                        <optimize>${jdk.optimize}</optimize>
+                    </configuration>
+                </plugin>
+                <plugin>
+                    <groupId>org.jenkins-ci.tools</groupId>
+                    <artifactId>maven-hpi-plugin</artifactId>
+                    <version>${hpi.plugin.version}</version>
+                </plugin>
+            </plugins>
+        </pluginManagement>
+    </build>
+    <licenses>
+       <license>
+          <name>MIT</name>
+       </license>
+    </licenses>
+    <scm>
+        <connection>scm:git:git://github.com/magnayn/Jenkins-Repository.git</connection>
+        <developerConnection>scm:git:git@github.com:magnayn/Jenkins-Repository.git</developerConnection>
+    </scm>
+    <modules>
+        <module>repository-hpi</module>
+        <module>jenkins-maven-plugin</module>
+    </modules>
+
+   <!-- get every artifact through repo.jenkins-ci.org, which proxies all the artifacts that we need -->
+   <repositories>
+       <repository>
+           <id>repo.jenkins-ci.org</id>
+	   <url>http://repo.jenkins-ci.org/public/</url>
+       </repository>
+   </repositories>
+
+   <pluginRepositories>
+       <pluginRepository>
+            <id>repo.jenkins-ci.org</id>
+            <url>http://repo.jenkins-ci.org/public/</url>
+       </pluginRepository>
+   </pluginRepositories>
+
+    <distributionManagement>
+        <repository>
+            <id>maven.jenkins-ci.org</id>
+            <url>http://maven.jenkins-ci.org:8081/content/repositories/releases/</url>
+        </repository>
+    </distributionManagement>
+
 </project>
